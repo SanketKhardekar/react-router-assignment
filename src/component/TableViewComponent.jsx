@@ -5,7 +5,7 @@ const TableViewComponent = (props) => {
     console.log(params);
   };
   return (
-    <div style={{width:"100%"}}>
+    <div style={{width:"80%",marginLeft: "30px" }}>
       {props.rows.length > 0 ? (
         <DataGrid
           autoHeight={true}

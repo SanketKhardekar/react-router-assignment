@@ -1,6 +1,7 @@
 import { Paper } from "@mui/material";
 import styles from "./DetailedUserView.module.css";
 const DetailedUserView = (props) => {
+    console.log(props.user)
   return (
     <Paper className={styles.cardBox}>
       <div className={styles.cardPaper}>
