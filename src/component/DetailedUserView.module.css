@@ -1,0 +1,16 @@
+.cardBox{
+    height: 100%;
+    width: 100%;
+    background-color: #F8F9F9 !important;
+
+}
+.cardPaper{
+    height: 100%;
+    padding: 25px;
+    overflow: hidden;
+}
+
+.cardText{
+    font-size: 18px;
+    margin-bottom: 10px;
+}
