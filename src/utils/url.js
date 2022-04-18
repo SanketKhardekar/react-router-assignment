@@ -1,2 +1,2 @@
-export const getColleges='http://universities.hipolabs.com/search?name=';
-export const getCountries='https://api.first.org/data/v1/countries';
+export const getColleges='http://universities.hipolabs.com/search?';
+export const getCountries='https://restcountries.com/v3.1/all';
