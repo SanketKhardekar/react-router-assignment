@@ -9,7 +9,7 @@ const TableViewComponent = (props) => {
   return (
     <Fragment>
       {props.rows.length > 0 ? (
-        <div style={{ width: "96%", marginLeft: "30px",backgroundColor:"white"}}>
+        <div style={{ width: "96%",backgroundColor:"white"}}>
           <DataGrid
             autoHeight={true}
             disableExtendRowFullWidth={true}
@@ -20,7 +20,7 @@ const TableViewComponent = (props) => {
           />
         </div>
       ) : (
-        <Grid container spacing={2} style={{ marginLeft: "30px" }}>
+        <Grid container spacing={2}>
           <h2>Data Not Found!</h2>
         </Grid>
       )}

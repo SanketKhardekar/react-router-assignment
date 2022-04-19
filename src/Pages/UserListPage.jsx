@@ -42,10 +42,10 @@ const UserListPage = (props) => {
     localStorage.setItem("users", JSON.stringify(filteredDeletedUser));
     setOpenDetailDialog(false);
   };
-  const onUpdateHandler=(user)=>{
-    setOpenDetailDialog(false)
-    navigate("/updateUser",{ state:user});
-  }
+  const onUpdateHandler = (user) => {
+    setOpenDetailDialog(false);
+    navigate("/updateUser", { state: user });
+  };
   return (
     <Fragment>
       <Button
@@ -64,25 +64,33 @@ const UserListPage = (props) => {
         style={{ marginLeft: "30px" }}
         spacing={1}
       >
-        <Grid item><h4 style={{padding:"20px"}}>Card View</h4></Grid>
-        <Grid item>
+        <Grid item lg={2} xs={2}>
+          <h4 style={{ padding: "20px" }}>Card View</h4>
+        </Grid>
+        <Grid item lg={2} xs={2}>
           <Switch
             checked={isTableView}
             onChange={() => {
               setIsTableView(!isTableView);
-            }} 
+            }}
             value="checked"
           />
         </Grid>
-        <Grid item><h4 style={{padding:"20px"}}>Table View</h4></Grid>
+        <Grid item lg={2} xs={2}>
+          <h4 style={{ padding: "20px" }}>Table View</h4>
+        </Grid>
       </Grid>
       {isTableView ? (
-        <TableViewComponent
-          user
-          columns={tableColumns}
-          rows={users}
-          onClick={onDetailedDialogOpenHandler}
-        />
+        <Grid conatiner>
+          <Grid item lg={8} md={10} xs={12}>
+            <TableViewComponent
+              user
+              columns={tableColumns}
+              rows={users}
+              onClick={onDetailedDialogOpenHandler}
+            />
+          </Grid>
+        </Grid>
       ) : (
         <CardViewComponent data={users} onClick={onDetailedDialogOpenHandler} />
       )}
@@ -93,7 +101,11 @@ const UserListPage = (props) => {
           setOpenDetailDialog(false);
         }}
       >
-        <DetailedUserView user={detailedUser} onDelete={onDeleteHandler} onUpdate={onUpdateHandler}/>
+        <DetailedUserView
+          user={detailedUser}
+          onDelete={onDeleteHandler}
+          onUpdate={onUpdateHandler}
+        />
       </DialogComponent>
     </Fragment>
   );
