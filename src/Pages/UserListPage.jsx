@@ -1,14 +1,16 @@
-import { Button, Grid} from "@mui/material";
-import Switch from '@mui/material/Switch';
+import { Button, Grid } from "@mui/material";
+import Switch from "@mui/material/Switch";
 import { useEffect, useState, Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import CardViewComponent from "../component/CardViewComponent";
 import DetailedUserView from "../component/DetailedUserView";
 import DialogComponent from "../component/DialogComponent";
 import TableViewComponent from "../component/TableViewComponent";
 const UserListPage = (props) => {
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [detailedUser, setDetailedUser] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDetailDialog, setOpenDetailDialog] = useState(false);
   const [isTableView, setIsTableView] = useState(false);
   useEffect(() => {
     const list = localStorage.getItem("users");
@@ -20,26 +22,37 @@ const UserListPage = (props) => {
     localStorage.removeItem("users");
     setUsers([]);
   };
-  const onDialogOpenHandler = (id) => {
+  const onDetailedDialogOpenHandler = (id) => {
     let userArray = users.filter((user) => user.id === id);
     const user = userArray[0];
     setDetailedUser(user);
-    setOpenDialog(true);
+    setOpenDetailDialog(true);
   };
   const tableColumns = [
     { field: "id", headerName: "SR.NO", flex: 0 },
-    { field: "name", headerName: "NAME", flex: 1 },
-    { field: "birthDate", headerName: "BIRTH DATE", flex: 0 },
+    { field: "name", headerName: "NAME", flex: 0.5 },
+    { field: "birthDate", headerName: "BIRTH DATE", flex: 0.5 },
     { field: "college", headerName: "COLLEGE", flex: 1 },
-    { field: "smallBio", headerName: "BIO", flex: 2 },
+    { field: "shortBio", headerName: "BIO", flex: 0.5 },
   ];
+  const onDeleteHandler = (id) => {
+    const filteredDeletedUser = users.filter((user) => user.id !== id);
+    setUsers(filteredDeletedUser);
+
+    localStorage.setItem("users", JSON.stringify(filteredDeletedUser));
+    setOpenDetailDialog(false);
+  };
+  const onUpdateHandler=(user)=>{
+    setOpenDetailDialog(false)
+    navigate("/updateUser",{ state:user});
+  }
   return (
     <Fragment>
       <Button
         style={{ margin: "30px" }}
         variant="contained"
         onClick={onButtonClick}
-        color="success"
+        color="error"
         size="large"
       >
         CLEAR DATA
@@ -51,31 +64,36 @@ const UserListPage = (props) => {
         style={{ marginLeft: "30px" }}
         spacing={1}
       >
-        <Grid item>Card View</Grid>
+        <Grid item><h4 style={{padding:"20px"}}>Card View</h4></Grid>
         <Grid item>
           <Switch
-            checked={isTableView} // relevant state for your case
+            checked={isTableView}
             onChange={() => {
               setIsTableView(!isTableView);
-            }} // relevant method to handle your change
-            value="checked" // some value you need
+            }} 
+            value="checked"
           />
         </Grid>
-        <Grid item>Table View</Grid>
+        <Grid item><h4 style={{padding:"20px"}}>Table View</h4></Grid>
       </Grid>
       {isTableView ? (
-        <TableViewComponent columns={tableColumns} rows={users} />
+        <TableViewComponent
+          user
+          columns={tableColumns}
+          rows={users}
+          onClick={onDetailedDialogOpenHandler}
+        />
       ) : (
-        <CardViewComponent data={users} onClick={onDialogOpenHandler} />
+        <CardViewComponent data={users} onClick={onDetailedDialogOpenHandler} />
       )}
 
       <DialogComponent
-        open={openDialog}
+        open={openDetailDialog}
         onClose={() => {
-          setOpenDialog(false);
+          setOpenDetailDialog(false);
         }}
       >
-        <DetailedUserView user={detailedUser} />
+        <DetailedUserView user={detailedUser} onDelete={onDeleteHandler} onUpdate={onUpdateHandler}/>
       </DialogComponent>
     </Fragment>
   );

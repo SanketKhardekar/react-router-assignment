@@ -21,8 +21,18 @@ const hobbiesOptions = [
   { label: "Gaming", value: "Gaming" },
   { label: "Traveling", value: "Traveling" },
   { label: "Drawing", value: "Drawing" },
-  { label: "Reading", value: "Reading" },
 ];
+const customeCreatableStyles = {
+  menu:base=>({
+    ...base,
+    zIndex:2,
+  }),
+  control: base => ({
+    ...base,
+    height: 55,
+    minHeight: 35
+  })
+};
 const UserForm = (props) => {
   const navigate = useNavigate();
   const [name, setName] = useState(props.update ? props.user.name : "");
@@ -49,25 +59,64 @@ const UserForm = (props) => {
 
   const [gender, setGender] = useState(props.update ? props.user.gender : "");
 
-  const [hobbies, setHobbies] = useState(props.update ? props.hobbies : "");
-  console.log(hobbies);
+  const [hobbies, setHobbies] = useState(
+    props.update ? props.user.hobbies : ""
+  );
+
+  const [shortBio, setShortBio] = useState(
+    props.update ? props.user.shortBio : ""
+  );
+
+  const [longBio, setLongBio] = useState(
+    props.update ? props.user.longBio : ""
+  );
+
   const onSubmitHandler = () => {
-    const user = {
-      id: Math.floor(1000 + Math.random() * 9000),
-      name,
-      address,
-    };
     const users = localStorage.getItem("users");
     let usersArray = [];
-    if (users) {
+    if (!props.update) {
+      const user = {
+        id: Math.floor(1000 + Math.random() * 9000),
+        name,
+        address,
+        gender,
+        birthDate,
+        college: collegeValue,
+        country: countryValue,
+        hobbies,
+        shortBio,
+        longBio,
+      };
+      if (users) {
+        usersArray = JSON.parse(users);
+        usersArray.push(user);
+        localStorage.setItem("users", JSON.stringify(usersArray));
+      } else {
+        usersArray.push(user);
+        localStorage.setItem("users", JSON.stringify(usersArray));
+      }
+      navigate("/", { replace: true });
+    } 
+    else 
+    {
+      let user={
+        id:props.user.id,
+        name,
+        address,
+        gender,
+        birthDate,
+        college: collegeValue,
+        country: countryValue,
+        hobbies,
+        shortBio,
+        longBio,
+      }
       usersArray = JSON.parse(users);
-      usersArray.push(user);
+      const userIndex=usersArray.findIndex(user => user.id === props.user.id);
+      usersArray[userIndex]=user;
       localStorage.setItem("users", JSON.stringify(usersArray));
-    } else {
-      usersArray.push(user);
-      localStorage.setItem("users", JSON.stringify(usersArray));
+      navigate("/", { replace: true });
     }
-    navigate("/", { replace: true });
   };
   useEffect(() => {
     const getCountryData = async () => {
@@ -100,14 +149,13 @@ const UserForm = (props) => {
   return (
     <Grid
       container
-      spacing={1}
-      sx={{ height: "fit-content", width: "100%", margin: "30px" }}
+      sx={{ height: "fit-content", width: "100%", marginTop: "50px"}}
       direction="row"
       justifyContent="center"
-      alignItems="center"
+      alignSelf="center"
     >
-      <Grid item md={6} xs={8}>
-        <Card sx={{ padding: "50px" }} elevation={10}>
+      <Grid item md={6} xs={12}>
+        <Card sx={{padding:"30px",width:"100%"}} elevation={10}>
           <Grid
             container
             spacing={10}
@@ -124,7 +172,7 @@ const UserForm = (props) => {
             <Grid
               container
               columnSpacing={2}
-              rowGap={4}
+              rowGap={2}
               sx={{ padding: "0 30px" }}
             >
               <Grid item lg={4} md={6} xs={12}>
@@ -246,10 +294,10 @@ const UserForm = (props) => {
                   />
                 )}
               </Grid>
-              <Grid item lg={4} md={6} xs={12}>
-                <FormControl fullWidth>
+              <Grid item md={6} xs={12}>
+                <FormControl fullWidth style={{ paddingTop: "15px" }}>
                   <Creatable
-                    styles={{width:"100%",heigth:"100%"}}
+                    styles={customeCreatableStyles}
                     isClearable
                     isMulti
                     placeholder="Hobbies"
@@ -261,6 +309,34 @@ const UserForm = (props) => {
                   />
                 </FormControl>
               </Grid>
+              <Grid item md={6} xs={12}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  multiline
+                  required
+                  label="Short Bio"
+                  value={shortBio}
+                  margin="normal"
+                  onChange={(e) => {
+                    setShortBio(e.target.value);
+                  }}
+                />
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  required
+                  multiline
+                  label="Long Bio"
+                  value={longBio}
+                  margin="normal"
+                  onChange={(e) => {
+                    setLongBio(e.target.value);
+                  }}
+                />
+              </Grid>
               <Grid item md={12} xs={12}>
                 <Button
                   type="submit"
@@ -269,7 +345,7 @@ const UserForm = (props) => {
                   color="success"
                   size="large"
                 >
-                  SUBMIT
+                  {props.update ? "Update User" : "Add User"}
                 </Button>
               </Grid>
             </Grid>

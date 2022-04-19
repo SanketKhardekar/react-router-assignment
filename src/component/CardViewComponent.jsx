@@ -7,20 +7,20 @@ const CardViewComponent=(props)=>{
             props.onClick(element.id)
           }
           return (
-            <Grid key={element.id} item lg={2} md={2} sm={6} xs={12} >
-              <Card key={element.id} onClick={onCardClickHandler}>
+            <Grid key={element.id} item lg={2} md={2} sm={6} xs={10} >
+              <Card key={element.id} onClick={onCardClickHandler} elevation={3}>
                 <CardContent key={element.id}>
-                  <h4>Name: {element.name}</h4>
-                  <h4>Birth Date: {element.address}</h4>
-                  <h4>College: {element.company}</h4>
-                  <h4>Bio:{}</h4>
+                  <h4><strong>Name:</strong> {element.name}</h4>
+                  <h4><strong>Birth Date:</strong> {element.birthDate}</h4>
+                  <h4><strong>College:</strong> {element.college}</h4>
+                  <h4><strong>Bio:</strong> {element.shortBio}</h4>
                 </CardContent>
               </Card>
             </Grid>
           );
         })
       ) : (
-        <h2>Data Not Found</h2>
+        <h2>Data Not Found!</h2>
       );
     return(<Fragment>
         <Grid container spacing={2} style={{ marginLeft: "30px" }}>

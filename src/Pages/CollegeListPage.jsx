@@ -1,27 +1,26 @@
 import { TextField } from "@mui/material";
 import { Fragment, useState } from "react";
-import * as services from "../services"
+import * as services from "../services";
 import TableViewComponent from "../component/TableViewComponent";
 import styles from "./CollegeListPage.module.css";
 const CollegeListPage = (props) => {
   const [colleges, setColleges] = useState([]);
-  const [searchName, setSearchName]=useState("")
+  const [searchName, setSearchName] = useState("");
   const columns = [
-    { field: "id", headerName: "SR.NO", flex:0 },
-    { field: "country", headerName: "COUNTRY", flex:1 },
-    { field: "name", headerName: "COLLEGE NAME", flex:2},
+    { field: "id", headerName: "SR.NO", flex: 0 },
+    { field: "country", headerName: "COUNTRY", flex: 1 },
+    { field: "name", headerName: "COLLEGE NAME", flex: 2 },
   ];
-  const callSearchCollege=async()=>{
-    if(searchName)
-    {
-       const response= await services.getCollegesAPI(searchName,'')
-       let tempColleges=[]
-       response.data.forEach((element,index) => {
-           tempColleges.push({id:index++, ...element})
-       });
-       setColleges(tempColleges)
+  const callSearchCollege = async () => {
+    if (searchName) {
+      const response = await services.getCollegesAPI(searchName, "");
+      let tempColleges = [];
+      response.data.forEach((element, index) => {
+        tempColleges.push({ id: ++index, ...element });
+      });
+      setColleges(tempColleges);
     }
-  }
+  };
   return (
     <Fragment>
       <div className={styles.container}>
@@ -29,21 +28,25 @@ const CollegeListPage = (props) => {
         <br />
         <TextField
           id="search-college"
+          sx={{backgroundColor:"white"}}
           label="Search College"
           value={searchName}
           variant="outlined"
-          onChange={(e)=> setSearchName(e.target.value)}
-          onKeyDown={(e)=>{
-              if(e.key === 'Enter')
-              {
-                  callSearchCollege()
-              }
+          onChange={(e) => setSearchName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              callSearchCollege();
+            }
           }}
         />
         <br />
         <br />
         <div className={styles.tableContainer}>
-          <TableViewComponent columns={columns} rows={colleges} />
+          {searchName !== "" ? (
+            <TableViewComponent columns={columns} rows={colleges} />
+          ) : (
+            " "
+          )}
         </div>
       </div>
     </Fragment>

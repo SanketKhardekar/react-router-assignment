@@ -1,24 +1,30 @@
+import { Grid } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { Fragment } from "react";
 
 const TableViewComponent = (props) => {
   const onCellClickHandler = (params) => {
-    console.log(params);
+    props.onClick(params.row.id);
   };
   return (
-    <div style={{width:"80%",marginLeft: "30px" }}>
+    <Fragment>
       {props.rows.length > 0 ? (
-        <DataGrid
-          autoHeight={true}
-          disableExtendRowFullWidth={true}
-          rows={props.rows}
-          columns={props.columns}
-          pageSize={props.rows.length > 10 ? 5 : props.rows.length}
-          onCellClick={props.user ? onCellClickHandler : ()=>{}}
-        />
+        <div style={{ width: "96%", marginLeft: "30px",backgroundColor:"white"}}>
+          <DataGrid
+            autoHeight={true}
+            disableExtendRowFullWidth={true}
+            rows={props.rows}
+            columns={props.columns}
+            pageSize={props.rows.length > 10 ? 5 : props.rows.length}
+            onCellClick={props.user ? onCellClickHandler : () => {}}
+          />
+        </div>
       ) : (
-        <h2>Data Not Found!</h2>
+        <Grid container spacing={2} style={{ marginLeft: "30px" }}>
+          <h2>Data Not Found!</h2>
+        </Grid>
       )}
-    </div>
+    </Fragment>
   );
 };
 export default TableViewComponent;
