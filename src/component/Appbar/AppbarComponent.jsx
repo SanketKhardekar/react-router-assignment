@@ -20,14 +20,14 @@ const pages = [
   },
   {
     id:3,
-    name:"College List",
+    name:"College",
     to:"/collegeList"
   }
 ];
 const AppbarComponent = () => {
   let navigate = useNavigate();
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{backgroundColor:'#8100ff'}}>
       <Container maxWidth="xxl">
         <Toolbar disableGutters>
           <Typography
@@ -36,16 +36,16 @@ const AppbarComponent = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            MindBowser
+            <strong>MindBowser</strong>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 3, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page.id}
                 onClick={() => navigate(page.to, { replace: true })}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 2, color:"whitesmoke", display: "block" }}
               >
-                {page.name}
+               <strong>{page.name}</strong> 
               </Button>
             ))}
           </Box>

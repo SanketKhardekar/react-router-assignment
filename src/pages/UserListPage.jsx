@@ -2,10 +2,10 @@ import { Button, Grid } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import { useEffect, useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
-import CardViewComponent from "../component/CardViewComponent";
-import DetailedUserView from "../component/DetailedUserView";
-import DialogComponent from "../component/DialogComponent";
-import TableViewComponent from "../component/TableViewComponent";
+import CardViewComponent from "../component/Card/CardViewComponent";
+import DetailedUserView from "../component/DetailedUserView/DetailedUserView";
+import DialogComponent from "../component/Dialog/DialogComponent";
+import TableViewComponent from "../component/Table/TableViewComponent";
 const UserListPage = (props) => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -49,7 +49,6 @@ const UserListPage = (props) => {
   return (
     <Fragment>
       <Button
-        style={{ margin: "30px" }}
         variant="contained"
         onClick={onButtonClick}
         color="error"
@@ -60,8 +59,9 @@ const UserListPage = (props) => {
       <br />
       <Grid
         container
+        flex="row"
         alignItems="center"
-        style={{ marginLeft: "30px" }}
+        justifyContent="flex-start"
         spacing={1}
       >
         <Grid item lg={2} xs={2}>
@@ -82,11 +82,11 @@ const UserListPage = (props) => {
       </Grid>
       {isTableView ? (
         <Grid conatiner>
-          <Grid item lg={8} md={10} xs={12} style={{padding:"10px"}}>
+          <Grid item lg={8} md={10} xs={12}>
             <TableViewComponent
               user
               columns={tableColumns}
-              rows={users.reverse()}
+              rows={users}
               onClick={onDetailedDialogOpenHandler}
             />
           </Grid>

@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { Fragment, useState } from "react";
 import * as services from "../services";
-import TableViewComponent from "../component/TableViewComponent";
+import TableViewComponent from "../component/Table/TableViewComponent";
 import styles from "./CollegeListPage.module.css";
 const CollegeListPage = (props) => {
   const [colleges, setColleges] = useState([]);

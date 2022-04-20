@@ -1,4 +1,4 @@
-import UserForm from "../component/UserForm";
+import UserForm from "../component/Form/UserForm";
 
 const AddUserPage = (props) => {
   return (

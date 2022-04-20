@@ -9,9 +9,10 @@ import {
   MenuItem,
   Select,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import * as services from "../services";
+import * as services from "../../services";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/system";
 import Creatable from "react-select/creatable";
@@ -89,7 +90,7 @@ const UserForm = (props) => {
       };
       if (users) {
         usersArray = JSON.parse(users);
-        usersArray.push(user);
+        usersArray.unshift(user);
         localStorage.setItem("users", JSON.stringify(usersArray));
       } else {
         usersArray.push(user);
@@ -154,8 +155,8 @@ const UserForm = (props) => {
       justifyContent="center"
       alignSelf="center"
     >
-      <Grid item md={6} xs={12}>
-        <Card sx={{padding:"30px",width:"100%"}} elevation={10}>
+      <Grid item md={6} xs={8}>
+        <Card sx={{padding:"10px",width:"100%"}} elevation={10}>
           <Grid
             container
             spacing={10}
@@ -195,6 +196,7 @@ const UserForm = (props) => {
                   variant="outlined"
                   required
                   label="Birth Date"
+                  inputProps={{max: "2020-01-01"}}
                   value={birthDate}
                   margin="normal"
                   onChange={(e) => {
@@ -295,6 +297,7 @@ const UserForm = (props) => {
                 )}
               </Grid>
               <Grid item md={6} xs={12}>
+                <Tooltip title="Select Hobbies Enter Name If Hobbies Not Avaiable" placeholder="bottom">
                 <FormControl fullWidth style={{ paddingTop: "15px" }}>
                   <Creatable
                     styles={customeCreatableStyles}
@@ -307,7 +310,7 @@ const UserForm = (props) => {
                     options={hobbiesOptions}
                     value={hobbies}
                   />
-                </FormControl>
+                </FormControl></Tooltip>
               </Grid>
               <Grid item md={6} xs={12}>
                 <TextField

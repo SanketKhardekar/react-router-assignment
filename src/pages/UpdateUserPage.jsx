@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { useLocation } from "react-router"
-import UserForm from "../component/UserForm";
+import UserForm from "../component/Form/UserForm";
 const UpdateUserPage=(props)=>{
     const { state} =useLocation();
     if(!state)
