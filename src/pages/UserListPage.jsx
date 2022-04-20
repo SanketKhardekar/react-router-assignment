@@ -82,17 +82,17 @@ const UserListPage = (props) => {
       </Grid>
       {isTableView ? (
         <Grid conatiner>
-          <Grid item lg={8} md={10} xs={12}>
+          <Grid item lg={8} md={10} xs={12} style={{padding:"10px"}}>
             <TableViewComponent
               user
               columns={tableColumns}
-              rows={users}
+              rows={users.reverse()}
               onClick={onDetailedDialogOpenHandler}
             />
           </Grid>
         </Grid>
       ) : (
-        <CardViewComponent data={users} onClick={onDetailedDialogOpenHandler} />
+        <CardViewComponent data={users.reverse()} onClick={onDetailedDialogOpenHandler} />
       )}
 
       <DialogComponent

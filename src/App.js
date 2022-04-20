@@ -1,11 +1,11 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import UserListPage from "./Pages/UserListPage";
-import AddUserPage from "./Pages/AddUserPage";
+import UserListPage from "./pages/UserListPage";
+import AddUserPage from "./pages/AddUserPage";
 import AppbarComponent from "./component/AppbarComponent";
-import NoPage from "./Pages/NoPage";
-import CollegeListPage from "./Pages/CollegeListPage";
-import UpdateUserPage from "./Pages/UpdateUserPage";
+import NoPage from "./pages/NoPage";
+import CollegeListPage from "./pages/CollegeListPage";
+import UpdateUserPage from "./pages/UpdateUserPage";
 import { Fragment } from "react";
 function App() {
   return (

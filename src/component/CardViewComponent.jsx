@@ -8,7 +8,7 @@ const CardViewComponent=(props)=>{
           }
           return (
             <Grid key={element.id} item lg={2} md={4} sm={6} xs={10} >
-              <Card key={element.id} onClick={onCardClickHandler} elevation={3}>
+              <Card key={element.id} onClick={onCardClickHandler} elevation={10} style={{borderRadius:"50px"}}>
                 <CardContent key={element.id}>
                   <h4><strong>Name:</strong> {element.name}</h4>
                   <h4><strong>Birth Date:</strong> {element.birthDate}</h4>
@@ -18,7 +18,7 @@ const CardViewComponent=(props)=>{
               </Card>
             </Grid>
           );
-        })
+        }).reverse()
       ) : (
         <h2>Data Not Found!</h2>
       );
