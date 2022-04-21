@@ -24,15 +24,15 @@ const hobbiesOptions = [
   { label: "Drawing", value: "Drawing" },
 ];
 const customeCreatableStyles = {
-  menu:base=>({
+  menu: (base) => ({
     ...base,
-    zIndex:2,
+    zIndex: 2,
   }),
-  control: base => ({
+  control: (base) => ({
     ...base,
     height: 55,
-    minHeight: 35
-  })
+    minHeight: 35,
+  }),
 };
 const UserForm = (props) => {
   const navigate = useNavigate();
@@ -71,7 +71,9 @@ const UserForm = (props) => {
   const [longBio, setLongBio] = useState(
     props.update ? props.user.longBio : ""
   );
-
+  // const checkNum=(e)=>{
+  //   if(e.key)
+  // }
   const onSubmitHandler = () => {
     const users = localStorage.getItem("users");
     let usersArray = [];
@@ -97,11 +99,9 @@ const UserForm = (props) => {
         localStorage.setItem("users", JSON.stringify(usersArray));
       }
       navigate("/", { replace: true });
-    } 
-    else 
-    {
-      let user={
-        id:props.user.id,
+    } else {
+      let user = {
+        id: props.user.id,
         name,
         address,
         gender,
@@ -111,10 +111,12 @@ const UserForm = (props) => {
         hobbies,
         shortBio,
         longBio,
-      }
+      };
       usersArray = JSON.parse(users);
-      const userIndex=usersArray.findIndex(user => user.id === props.user.id);
-      usersArray[userIndex]=user;
+      const userIndex = usersArray.findIndex(
+        (user) => user.id === props.user.id
+      );
+      usersArray[userIndex] = user;
       localStorage.setItem("users", JSON.stringify(usersArray));
       navigate("/", { replace: true });
     }
@@ -150,13 +152,13 @@ const UserForm = (props) => {
   return (
     <Grid
       container
-      sx={{ height: "fit-content", width: "100%", marginTop: "50px"}}
+      sx={{ height: "fit-content", width: "100%", marginTop: "50px" }}
       direction="row"
       justifyContent="center"
       alignSelf="center"
     >
       <Grid item md={6} xs={8}>
-        <Card sx={{padding:"10px",width:"100%"}} elevation={10}>
+        <Card sx={{ padding: "10px", width: "100%" }} elevation={10}>
           <Grid
             container
             spacing={10}
@@ -196,7 +198,7 @@ const UserForm = (props) => {
                   variant="outlined"
                   required
                   label="Birth Date"
-                  inputProps={{max: "2020-01-01"}}
+                  inputProps={{ max: "2020-01-01" }}
                   value={birthDate}
                   margin="normal"
                   onChange={(e) => {
@@ -297,20 +299,24 @@ const UserForm = (props) => {
                 )}
               </Grid>
               <Grid item md={6} xs={12}>
-                <Tooltip title="Select Hobbies Enter Name If Hobbies Not Avaiable" placeholder="bottom">
-                <FormControl fullWidth style={{ paddingTop: "15px" }}>
-                  <Creatable
-                    styles={customeCreatableStyles}
-                    isClearable
-                    isMulti
-                    placeholder="Hobbies"
-                    onChange={(value) => {
-                      setHobbies(value);
-                    }}
-                    options={hobbiesOptions}
-                    value={hobbies}
-                  />
-                </FormControl></Tooltip>
+                <Tooltip
+                  title="Select Hobbies Enter Name If Hobbies Not Avaiable"
+                  placeholder="bottom"
+                >
+                  <FormControl fullWidth style={{ paddingTop: "15px" }}>
+                    <Creatable
+                      styles={customeCreatableStyles}
+                      isClearable
+                      isMulti
+                      placeholder="Hobbies"
+                      onChange={(value) => {
+                        setHobbies(value);
+                      }}
+                      options={hobbiesOptions}
+                      value={hobbies}
+                    />
+                  </FormControl>
+                </Tooltip>
               </Grid>
               <Grid item md={6} xs={12}>
                 <TextField

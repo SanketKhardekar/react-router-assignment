@@ -24,25 +24,26 @@ const pages = [
   {
     id: 1,
     name: "UserList",
-    icon: <RecentActorsIcon fontSize="large" />,
+    icon: <RecentActorsIcon style={{color:"white"}} fontSize="large" />,
     to: "/",
   },
   {
     id: 2,
     name: "Add User",
-    icon: <PersonAddIcon fontSize="large" />,
+    icon: <PersonAddIcon style={{color:"white"}} fontSize="large" />,
     to: "/addUser",
   },
   {
     id: 3,
     name: "College",
-    icon: <SchoolIcon fontSize="large" />,
+    icon: <SchoolIcon style={{color:"white"}} fontSize="large" />,
     to: "/collegeList",
   },
 ];
 const drawerWidth = 240;
 const openedMixin = (theme) => ({
   width: drawerWidth,
+  backgroundColor:"#2d323e",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -55,6 +56,7 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
+  backgroundColor:"#2d323e",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
@@ -91,6 +93,7 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
+  backgroundColor:"green",
   whiteSpace: "nowrap",
   boxSizing: "border-box",
   ...(open && {
@@ -138,6 +141,7 @@ const Index = (props) => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton
+          style={{color:"white"}}
             onClick={() => {
               setOpen(false);
             }}
@@ -155,6 +159,7 @@ const Index = (props) => {
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
+                color:"white"
               }}
             >
               <ListItemIcon

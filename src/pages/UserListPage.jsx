@@ -60,14 +60,14 @@ const UserListPage = (props) => {
       <Grid
         container
         flex="row"
-        alignItems="center"
         justifyContent="flex-start"
+        alignItems="center"
         spacing={1}
       >
-        <Grid item lg={2} xs={2}>
-          <h4 style={{ padding: "20px" }}>Card View</h4>
+        <Grid item lg={1} xs={1}>
+          <h4 >Card View</h4>
         </Grid>
-        <Grid item lg={2} xs={2}>
+        <Grid item lg={1} xs={1}>
           <Switch
             checked={isTableView}
             onChange={() => {
@@ -76,8 +76,8 @@ const UserListPage = (props) => {
             value="checked"
           />
         </Grid>
-        <Grid item lg={2} xs={2}>
-          <h4 style={{ padding: "20px" }}>Table View</h4>
+        <Grid item lg={1} xs={1}>
+          <h4 >Table View</h4>
         </Grid>
       </Grid>
       {isTableView ? (
@@ -92,7 +92,7 @@ const UserListPage = (props) => {
           </Grid>
         </Grid>
       ) : (
-        <CardViewComponent data={users.reverse()} onClick={onDetailedDialogOpenHandler} />
+        <CardViewComponent data={users} onClick={onDetailedDialogOpenHandler} />
       )}
 
       <DialogComponent
